@@ -402,6 +402,7 @@ int main(int argc, char * * argv)
 
                     /* Tell the worker to evaluate it. */
                     writeLine(to.get(), "do " + attrPath);
+                    std::cerr << "evaluating attribute " << attrPath << std::endl;
 
                     /* Wait for the response. */
                     auto response = nlohmann::json::parse(readLine(from.get()));

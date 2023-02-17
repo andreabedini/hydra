@@ -13,7 +13,7 @@
 
       pkgsBySystem = forEachSystem (system: import nixpkgs {
         inherit system;
-        overlays = [ self.overlays.default nix.overlays.default ];
+        overlays = [ nix.overlays.default self.overlays.default ];
       });
 
       # NixOS configuration used for VM tests.
@@ -39,6 +39,10 @@
 
       # A Nixpkgs overlay that provides a 'hydra' package.
       overlays.default = final: prev: {
+        # patch nix to log IFD
+        nix = prev.nix.overrideAttrs (oldAttrs: {
+          patches = (oldAttrs.patches or [ ]) ++ [ ./patch-nix-log-IFD.patch ];
+        });
 
         # Add LDAP dependencies that aren't currently found within nixpkgs.
         perlPackages = prev.perlPackages // {

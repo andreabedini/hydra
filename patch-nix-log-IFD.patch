@@ -1,0 +1,21 @@
+commit e52bc9c7333cf5907c42f22bb7ab50c8fce5d3d4
+Author: Andrea Bedini <andrea.bedini@tweag.io>
+Date:   Fri Feb 17 18:32:53 2023 +0800
+
+    Log IFDs
+
+diff --git a/src/libexpr/primops.cc b/src/libexpr/primops.cc
+index c6f41c4ca..5cce1f1dd 100644
+--- a/src/libexpr/primops.cc
++++ b/src/libexpr/primops.cc
+@@ -78,6 +78,10 @@ StringMap EvalState::realiseContext(const PathSet & context)
+             "cannot build '%1%' during evaluation because the option 'allow-import-from-derivation' is disabled",
+             store->printStorePath(drvs.begin()->drvPath)));
+ 
++    for (auto & drv : drvs) {
++        printError("Found IFD '%1%'", store->printStorePath(drv.drvPath));
++    }
++
+     /* Build/substitute the context. */
+     std::vector<DerivedPath> buildReqs;
+     for (auto & d : drvs) buildReqs.emplace_back(DerivedPath { d });
