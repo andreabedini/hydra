@@ -13,7 +13,7 @@ index c6f41c4ca..5cce1f1dd 100644
              store->printStorePath(drvs.begin()->drvPath)));
  
 +    for (auto & drv : drvs) {
-+        printError("Found IFD '%1%'", store->printStorePath(drv.drvPath));
++        printError("Building IFD '%1%'", store->printStorePath(drv.drvPath));
 +    }
 +
      /* Build/substitute the context. */
